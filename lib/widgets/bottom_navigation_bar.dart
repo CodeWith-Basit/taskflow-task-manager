@@ -21,11 +21,12 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   late int activeTab;
   late List<int> tabHistory;
 
-  static const List<Widget> _screens = [
-    HomeScreen(),
-    TaskScreen(),
-    CalenderScreen(),
-    ProfileScreen(),
+  static final List<Widget> _screens = [
+    const HomeScreen(),
+    const TaskScreen(),
+    const CalenderScreen(),
+    const ProfileScreen(),
+    AddTaskScreen(),
   ];
 
   static const List<String> _screenTitles = [
@@ -33,6 +34,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
     'My Tasks',
     'Calendar',
     'Profile',
+    'Add Task',
   ];
 
   @override
@@ -103,12 +105,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
         body: _screens[activeTab],
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const AddTaskScreen()),
-            );
-          },
+          onPressed: () => changeTab(4),
           backgroundColor: AppColors.primary,
           elevation: 4,
           shape: const CircleBorder(),

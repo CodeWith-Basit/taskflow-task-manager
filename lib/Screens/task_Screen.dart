@@ -60,6 +60,8 @@ class TaskScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           TextField(
+            onTapOutside: (event) =>
+                FocusManager.instance.primaryFocus?.unfocus(),
             style: const TextStyle(fontSize: 14),
             decoration: InputDecoration(
               hintText: 'Search tasks...',

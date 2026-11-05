@@ -16,60 +16,67 @@ class CalenderScreen extends StatefulWidget {
 class _CalenderScreenState extends State<CalenderScreen> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+        padding: const EdgeInsets.fromLTRB(16, 15, 16, 90),
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Calender",
-                      style: GoogleFonts.inter(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.textPrimary,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Calender",
+                        style: GoogleFonts.inter(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.textPrimary,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      "Plan your schedule and stay on track",
-                      style: GoogleFonts.inter(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textSecondary,
+                      const SizedBox(height: 2),
+                      Text(
+                        "Plan your schedule and stay on track",
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.textSecondary,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+                const SizedBox(width: 8),
                 ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      _focusedDay = DateTime.now();
+                      _selectedDay = DateTime.now();
+                    });
+                  },
                   icon: const FaIcon(
                     FontAwesomeIcons.calendarDays,
-                    size: 18,
+                    size: 16,
                     color: AppColors.primary,
                   ),
                   label: Text(
                     "Today",
                     style: GoogleFonts.inter(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
                       color: AppColors.textPrimary,
                     ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 15),
-
+            const SizedBox(height: 16),
             TaskCalendar(
               focusedDay: _focusedDay,
               selectedDay: _selectedDay,
@@ -80,9 +87,7 @@ class _CalenderScreenState extends State<CalenderScreen> {
                 });
               },
             ),
-            const SizedBox(height: 15),
-
-            // Additional content can be added here, such as a list of events or tasks for the selected day.
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -100,13 +105,14 @@ class _CalenderScreenState extends State<CalenderScreen> {
                     "View All",
                     style: GoogleFonts.inter(
                       fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                       color: AppColors.primary,
                     ),
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 4),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -148,7 +154,6 @@ class TaskCalendar extends StatelessWidget {
         focusedDay: focusedDay,
         firstDay: DateTime.utc(2020, 1, 1),
         lastDay: DateTime.utc(2035, 12, 31),
-
         headerStyle: const HeaderStyle(
           formatButtonVisible: false,
           titleCentered: true,
@@ -160,7 +165,6 @@ class TaskCalendar extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-
         daysOfWeekStyle: const DaysOfWeekStyle(
           weekdayStyle: TextStyle(
             color: AppColors.textSecondary,
@@ -171,7 +175,6 @@ class TaskCalendar extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-
         calendarStyle: CalendarStyle(
           outsideDaysVisible: false,
           defaultTextStyle: const TextStyle(color: AppColors.textPrimary),
@@ -193,15 +196,11 @@ class TaskCalendar extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-
         selectedDayPredicate: (day) {
           return isSameDay(selectedDay, day);
         },
-
         onDaySelected: onDaySelected,
-        onPageChanged: (newFocusedDay) {
-          // We'll connect month changes to your screen state.
-        },
+        onPageChanged: (newFocusedDay) {},
       ),
     );
   }
