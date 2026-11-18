@@ -99,9 +99,13 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
         });
       },
       child: Scaffold(
+        backgroundColor: AppColors.background,
         resizeToAvoidBottomInset: false,
         extendBody: true,
-        appBar: CustomAppBar(title: _screenTitles[activeTab]),
+        appBar: CustomAppBar(
+          title: activeTab == 3 ? 'TaskFlow' : _screenTitles[activeTab],
+          subtitle: activeTab == 3 ? 'Profile' : null,
+        ),
         body: _screens[activeTab],
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
